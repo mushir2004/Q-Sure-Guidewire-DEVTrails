@@ -157,3 +157,51 @@ graph TD
     
     F --> J[Instant UPI Disbursement]:::pass
 ```
+## 🛠️ 7. Tech Stack & Architecture Design
+
+Our architecture is designed for hyper-local scalability and real-time ML inference. 
+
+* **Frontend Interfaces:**
+  * **Rider App:** React Native (Expo) - Ensures cross-platform mobile compatibility with native hardware access for Sensor Fusion telemetry.
+  * **Insurer Dashboard:** Next.js with TailwindCSS & Mapbox GL - For high-performance, large-screen geospatial rendering.
+* **Backend & API Layer:**
+  * **Core Server:** Python (FastAPI) - Chosen for its asynchronous speed and seamless native integration with Data Science/ML libraries.
+* **Artificial Intelligence & Machine Learning:**
+  * **Pricing Model:** LightGBM (Gradient Boosting for Tabular Data).
+  * **Fraud Detection:** Scikit-Learn (Isolation Forest) & NetworkX (Graph ML for Syndicate Detection).
+* **Data Storage & Integrations:**
+  * **Database:** PostgreSQL with PostGIS extension (for complex lat/long bounding-box queries).
+  * **APIs:** OpenWeather API, TomTom/Google Maps API (Mocked), Razorpay Sandbox (Simulated Instant UPI Payouts).
+
+---
+
+## 🗓️ 8. The 6-Week Development Roadmap
+
+**Phase 1: Ideation & Foundation (Weeks 1-2) 📍 [CURRENT]**
+* Lock in the Q-Commerce persona and define the micro-radius vulnerability.
+* Design the Weekly Premium mathematical model (Risk vs. Payout).
+* Architect the Anti-Spoofing Sensor Fusion framework to neutralize syndicate attacks.
+* Build high-fidelity Figma UI mockups for the minimal scope prototype.
+
+**Phase 2: Automation & Protection (Weeks 3-4)**
+* Develop the Python FastAPI backend and connect OpenWeather/Traffic mock APIs.
+* Build the core zero-touch parametric trigger logic.
+* Train the baseline LightGBM model for Dynamic Weekly Pricing using synthetic local weather datasets.
+* Build the Next.js Insurer map dashboard to visualize API trigger thresholds.
+
+**Phase 3: Scale & Optimise (Weeks 5-6)**
+* Finalize the Advanced Fraud Detection (Isolation Forest) script for GPS spoofing.
+* Integrate Razorpay Sandbox to demonstrate the instant automated UPI payout.
+* Compile the final analytics dashboard showing Loss Ratios and active policy coverage.
+* Record the final 5-minute screen-capture video demonstrating a simulated flash flood triggering a zero-touch payout.
+
+---
+
+## 🔗 9. Phase 1 Deliverables
+
+* **🎥 2-Minute Prototype & Strategy Video:**[Insert your YouTube/Drive Link Here]
+* **🎨 UI/UX Figma Mockups:** [Insert your Figma Link Here]
+
+***
+
+> *"Protecting the backbone of India's fast-paced digital economy, one micro-premium at a time."*
