@@ -51,7 +51,7 @@ Gig workers operate week-to-week, requiring a **Dynamic Weekly Micro-Premium Mod
 ### Q-Sure Workflow Architecture
 
 ```mermaid
-graph TD
+graph LR
     classDef user fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff;
     classDef ai fill:#8b5cf6,stroke:#6d28d9,stroke-width:2px,color:#fff;
     classDef system fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff;
@@ -122,7 +122,7 @@ To protect liquidity from GPS-spoofing syndicates, Q-Sure utilizes a **4-Layer D
 ### Anti-Spoofing AI Workflow
 
 ```mermaid
-graph TD
+graph LR
     classDef anomaly fill:#ef4444,stroke:#991b1b,stroke-width:2px,color:#fff;
     classDef process fill:#3b82f6,stroke:#1d4ed8,stroke-width:2px,color:#fff;
     classDef pass fill:#10b981,stroke:#047857,stroke-width:2px,color:#fff;
