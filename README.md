@@ -2,7 +2,7 @@
   <h1>⚡ Q-SURE</h1>
   <h3>AI-Powered Income Assurance for India's Gig Economy</h3>
   
-  <a href="YOUR_VIDEO_LINK_HERE">
+  <a href="https://youtu.be/68xi-o_lPKs">
     <img src="https://img.shields.io/badge/Watch_Prototype_Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Video"/>
   </a>
   <a href="https://www.figma.com/proto/m6dOWMybHamF9rDTSUT70O/Q-Sure-Mockups?node-id=1-2&p=f&t=Uxfl2hPsgC6n6439-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1">
@@ -166,7 +166,7 @@ graph LR
 ## 9. Deliverables
 
 <div align="center">
-  <a href="YOUR_VIDEO_LINK_HERE">
+  <a href="https://youtu.be/68xi-o_lPKs">
     <img src="https://img.shields.io/badge/▶_2--Minute_Prototype_Video-282828?style=flat-square&logo=youtube&logoColor=white" alt="Video"/>
   </a>
   &nbsp;&nbsp;
