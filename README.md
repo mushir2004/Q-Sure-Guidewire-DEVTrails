@@ -89,6 +89,22 @@ We use **Multi-API Consensus** to trigger automated payouts, eliminating manual 
 
 * **📱 Rider Platform (PWA):** Zero-friction onboarding with a native-like mobile experience. Critical for gig workers who manage everything via smartphones.
 * **💻 Insurer Platform (Next.js Desktop Web):** Provides maximum screen real estate for underwriters to monitor live geospatial heatmaps, Graph ML fraud networks, and Loss Ratios.
+## 📱 App Interface & Mockups
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center"><img src="https://github.com/user-attachments/assets/5fc7010c-3dc3-43d3-9c85-6fab87452097" width="250" alt="Active Coverage Screen"/></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/4fdbcbd7-81e6-4cd9-b9a8-2c2a0e31bf93" width="250" alt="Disruption Screen"/></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/793fa65f-8d1d-4182-a536-1f5db94e8fb7" width="250" alt="Instant Payout Screen"/></td>
+    </tr>
+    <tr>
+      <td align="center"><b>1. Zone Mapping</b></td>
+      <td align="center"><b>2. Active Coverage</b></td>
+      <td align="center"><b>3. Zero-Touch Payout</b></td>
+    </tr>
+  </table>
+</div>
 
 ---
 
