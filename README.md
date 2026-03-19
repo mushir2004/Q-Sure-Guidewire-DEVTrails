@@ -6,7 +6,7 @@
     <img src="https://img.shields.io/badge/Watch_Prototype_Video-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch Video"/>
   </a>
   <a href="YOUR_FIGMA_LINK_HERE">
-    <img src="https://img.shields.io/badge/View_Figma_Mockups-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="View Figma"/>
+    <img src="https://www.figma.com/proto/m6dOWMybHamF9rDTSUT70O/Q-Sure-Mockups?node-id=1-2&p=f&t=Uxfl2hPsgC6n6439-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1" alt="View Figma"/>
   </a>
   <br><br>
 
@@ -155,7 +155,7 @@ graph TD
   </a>
   &nbsp;&nbsp;
   <a href="YOUR_FIGMA_LINK_HERE">
-    <img src="https://img.shields.io/badge/🎨_UI/UX_Figma_Mockups-282828?style=flat-square&logo=figma&logoColor=white" alt="Figma"/>
+    <img src="https://www.figma.com/proto/m6dOWMybHamF9rDTSUT70O/Q-Sure-Mockups?node-id=1-2&p=f&t=Uxfl2hPsgC6n6439-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1" alt="Figma"/>
   </a>
 </div>
 
