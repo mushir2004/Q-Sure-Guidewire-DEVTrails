@@ -171,7 +171,7 @@ graph TD
   </a>
   &nbsp;&nbsp;
   <a href="https://www.figma.com/proto/m6dOWMybHamF9rDTSUT70O/Q-Sure-Mockups?node-id=1-2&p=f&t=Uxfl2hPsgC6n6439-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1">
-    <img src=""https://img.shields.io/badge/🎨_UI/UX_Figma_Mockups-282828?style=flat-square&logo=figma&logoColor=white" alt="Figma"/>
+    <img src="https://img.shields.io/badge/🎨_UI/UX_Figma_Mockups-282828?style=flat-square&logo=figma&logoColor=white" alt="Figma"/>
   </a>
 </div>
 
