@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
 import joblib
+import requests
+from datetime import datetime
 
 # 1. Initialize FastAPI App
 app = FastAPI(
@@ -81,3 +83,97 @@ def calculate_premium(request: PremiumRequest):
         "dynamic_coverage_hours_per_day": coverage_hours,
         "ai_reasoning": ai_reasoning
     }
+
+OPENWEATHER_API_KEY = "YOUR_API_KEY_HERE" # Leave blank to use Mock data
+USER_WALLET = {"balance_inr": 0, "last_payout_time": None}
+
+# --- PARAMETRIC RULES ENGINE ---
+
+def evaluate_parametric_triggers(weather_data, traffic_data, platform_data):
+    """
+    The core logic that decides if a worker gets paid.
+    """
+    payout_triggered = False
+    reason = "All systems normal."
+
+    # 1. TRIGGER: Flash Flood (Rain + Traffic)
+    if weather_data['rain_mm'] > 15 and traffic_data['speed_kmh'] < 8:
+        payout_triggered = True
+        reason = "FLASH FLOOD DETECTED: Heavy rain and gridlock confirmed in your zone."
+
+    # 2. TRIGGER: Extreme Heatwave
+    elif weather_data['temp_c'] > 42:
+        payout_triggered = True
+        reason = "HEATWAVE ALERT: Temperature exceeds 42°C. Safety payout initiated."
+
+    # 3. TRIGGER: VVIP Gridlock / Social Unrest
+    elif traffic_data['speed_kmh'] < 3 and platform_data['store_status'] == "PAUSED":
+        payout_triggered = True
+        reason = "ZONE LOCKDOWN: VVIP Movement or Social Unrest detected. Dark Store offline."
+
+    return payout_triggered, reason
+
+# --- NEW ENDPOINTS ---
+
+@app.get("/check_triggers/{zone}")
+def check_triggers(zone: str, use_simulator: bool = False):
+    """
+    This is the heart of the Parametric System. 
+    It fetches live data and decides if Ramesh gets paid.
+    """
+    # 1. Fetch Data (Real Weather or Mock)
+    if not use_simulator and OPENWEATHER_API_KEY != "YOUR_API_KEY_HERE":
+        # REAL API CALL (Optional)
+        # weather = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q={zone}&appid={OPENWEATHER_API_KEY}").json()
+        # rain_mm = weather.get('rain', {}).get('1h', 0)
+        # temp_c = weather['main']['temp'] - 273.15
+        pass 
+    else:
+        # MOCK DATA (Safe defaults)
+        rain_mm = 0.0
+        temp_c = 32.0
+        avg_speed = 22.0
+        store_status = "ACTIVE"
+
+    # 2. THE "GOD MODE" OVERRIDE (For the Demo Video)
+    if use_simulator:
+        rain_mm = 25.0
+        avg_speed = 4.2
+        temp_c = 28.0
+        store_status = "PAUSED"
+
+    # 3. Evaluate Triggers
+    weather_data = {'rain_mm': rain_mm, 'temp_c': temp_c}
+    traffic_data = {'speed_kmh': avg_speed}
+    platform_data = {'store_status': store_status}
+    
+    is_triggered, alert_msg = evaluate_parametric_triggers(weather_data, traffic_data, platform_data)
+
+    # 4. If triggered, update the Wallet instantly!
+    payout_amount = 0
+    if is_triggered:
+        payout_amount = 100 # ₹100 per hour of disruption
+        USER_WALLET["balance_inr"] += payout_amount
+        USER_WALLET["last_payout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    return {
+        "zone": zone,
+        "disruption_active": is_triggered,
+        "alert_message": alert_msg,
+        "data_snapshot": {
+            "rainfall": f"{rain_mm}mm",
+            "traffic_speed": f"{avg_speed}km/h",
+            "store": store_status
+        },
+        "payout_status": {
+            "credited_amount": payout_amount,
+            "current_wallet_balance": USER_WALLET["balance_inr"],
+            "timestamp": USER_WALLET["last_payout_time"]
+        }
+    }
+
+@app.get("/user_wallet")
+def get_wallet():
+    return USER_WALLET
+
+
