@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Optional: Add a dark background to the html body to match our theme */
+body {
+    background-color: #000000;
+    color: #ffffff;
+}

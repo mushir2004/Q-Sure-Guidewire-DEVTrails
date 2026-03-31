@@ -1,0 +1,17 @@
+{
+    "name": "Q-Sure",
+    "short_name": "Q-Sure",
+    "description": "AI-Powered Income Assurance",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#a855f7",
+    "icons": [
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
