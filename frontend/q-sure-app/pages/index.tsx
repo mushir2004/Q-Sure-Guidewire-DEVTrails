@@ -10,7 +10,11 @@ import {
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 
-const ZoneMap = dynamic(() => import('../components/ZoneMap'), { ssr: false });
+// CHANGE THIS:
+const ZoneMap = dynamic(() => import('../components/ZoneMap'), {
+    ssr: false,
+    loading: () => <div className="w-full h-48 bg-slate-200 dark:bg-slate-800 animate-pulse rounded-2xl"></div>
+});
 
 const DISRUPTION_SCENARIOS = [
     { type: 'Local Strike (Verified)', alert: 'A Localized Bandh/Strike is reported. Q-Sure AI is verifying local data.', mapText: 'Gridlock Confirmed', duration: '2 Hours (4:00 PM - 6:00 PM)', amount: 200 },
@@ -36,6 +40,19 @@ export default function App() {
 
     const currentScenario = DISRUPTION_SCENARIOS[scenarioIndex];
     const WEEKLY_CAP = 1000;
+
+    // NEW: Load theme from localStorage on mount
+    useEffect(() => {
+        const savedTheme = localStorage.getItem('qsure-theme') as 'light' | 'dark';
+        if (savedTheme) setTheme(savedTheme);
+    }, []);
+
+    // NEW: Save theme to localStorage when toggled
+    const toggleTheme = () => {
+        const newTheme = theme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+        localStorage.setItem('qsure-theme', newTheme);
+    };
 
     useEffect(() => {
         fetch('http://10.3.99.184:8000/calculate_premium', {
@@ -72,7 +89,7 @@ export default function App() {
                     setStep(5);
                     setShowConfetti(true);
                     setTimeout(() => setShowConfetti(false), 8000);
-                }, 2000); // Progress bar in Step 4 perfectly matches this 2000ms delay
+                }, 2000);
             }
         } catch (err) {
             console.error("Backend fetch failed", err);
@@ -98,12 +115,10 @@ export default function App() {
         showToast("Statement_Mar2026.pdf downloaded to your device.");
     };
 
-    const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
-
     const pageVariants = {
-        initial: { opacity: 0, y: 15, scale: 0.98 },
-        animate: { opacity: 1, y: 0, scale: 1 },
-        exit: { opacity: 0, y: -15, scale: 0.98 }
+        initial: { opacity: 0, x: 15 },
+        animate: { opacity: 1, x: 0 },
+        exit: { opacity: 0, x: -15 }
     };
 
     return (
@@ -126,7 +141,7 @@ export default function App() {
                 </AnimatePresence>
 
                 {/* Header */}
-                <header className="sticky top-0 p-4 flex justify-between items-center bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 z-50 transition-colors">
+                <header className="shrink-0 p-4 flex justify-between items-center bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 z-50 transition-colors">
                     <button onClick={() => { setActiveTab('home'); setStep(1); }} className="w-10 h-10 bg-teal-50 dark:bg-teal-900/30 rounded-full flex items-center justify-center text-sm font-bold text-teal-700 dark:text-teal-400 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors active:scale-95">
                         RK
                     </button>
@@ -143,8 +158,8 @@ export default function App() {
                     </div>
                 </header>
 
-                <main className="flex-1 overflow-y-auto p-4 pb-4 relative hide-scrollbar">
-                    {showConfetti && <div className="absolute inset-0 z-[100] pointer-events-none"><Confetti width={480} height={800} recycle={false} numberOfPieces={300} gravity={0.1} /></div>}
+                <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 pb-4 relative hide-scrollbar">
+                    {showConfetti && <div className="absolute inset-0 z-[100] pointer-events-none overflow-hidden"><Confetti width={480} height={800} recycle={false} numberOfPieces={150} gravity={0.1} /></div>}
 
                     <AnimatePresence mode="wait">
                         {/* --- TAB 1: HOME --- */}
@@ -170,7 +185,6 @@ export default function App() {
                                     </div>
                                 </div>
 
-                                {/* NEW: PWA Install Banner (Only shows if NOT already installed) */}
                                 {!isStandalone && (installPrompt || isIOS) && (
                                     <div className="bg-gradient-to-r from-teal-500 to-emerald-500 p-5 rounded-3xl shadow-lg text-white flex items-center justify-between">
                                         <div className="pr-4">
@@ -333,7 +347,6 @@ export default function App() {
                                     <p className="text-sm mt-2 font-medium opacity-90 leading-relaxed">{currentScenario.alert}</p>
                                 </div>
 
-                                {/* UPDATED: Added Progress Bar that perfectly matches the 2000ms timeout */}
                                 <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex flex-col gap-4 transition-colors">
                                     <div className="flex items-center gap-4">
                                         <div className="relative flex items-center justify-center shrink-0">
@@ -346,7 +359,6 @@ export default function App() {
                                         </div>
                                     </div>
 
-                                    {/* AI Verification Progress Bar */}
                                     <div className="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                                         <motion.div
                                             initial={{ width: "0%" }}
@@ -369,7 +381,7 @@ export default function App() {
                         )}
 
                         {step === 5 && (
-                            <motion.div key="step5" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 20 }} className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800 text-center mt-4 relative z-10 transition-colors">
+                            <motion.div key="step5" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", stiffness: 200, damping: 20 }} className="will-change-transform bg-white dark:bg-slate-900 p-8 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-800 text-center mt-4 relative z-10 transition-colors">
                                 <div className="w-24 h-24 bg-gradient-to-tr from-emerald-500 to-teal-400 rounded-[2rem] flex items-center justify-center mx-auto mb-6 text-white shadow-xl shadow-emerald-500/30 transform -rotate-6">
                                     <CheckCircle size={48} className="transform rotate-6" />
                                 </div>
@@ -396,10 +408,11 @@ export default function App() {
                 </main>
 
                 {/* Bottom Navigation */}
-                <nav className="shrink-0 w-full h-[72px] bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 flex justify-around items-center z-50 pb-safe transition-colors">                    <button onClick={() => { if (step < 4) setActiveTab('home') }} className={`flex flex-col items-center justify-center w-16 h-full transition-all active:scale-95 ${activeTab === 'home' ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'}`}>
-                    <Home size={22} className={activeTab === 'home' ? 'fill-teal-50 dark:fill-teal-900/50' : ''} />
-                    <span className="text-[10px] mt-1 font-bold">Home</span>
-                </button>
+                <nav className="shrink-0 w-full h-[72px] bg-white/90 dark:bg-slate-950/90 backdrop-blur-xl border-t border-slate-200 dark:border-slate-800 flex justify-around items-center z-50 pb-safe transition-colors">
+                    <button onClick={() => { if (step < 4) setActiveTab('home') }} className={`flex flex-col items-center justify-center w-16 h-full transition-all active:scale-95 ${activeTab === 'home' ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'}`}>
+                        <Home size={22} className={activeTab === 'home' ? 'fill-teal-50 dark:fill-teal-900/50' : ''} />
+                        <span className="text-[10px] mt-1 font-bold">Home</span>
+                    </button>
                     <button onClick={() => { if (step < 4) setActiveTab('policy') }} className={`flex flex-col items-center justify-center w-16 h-full transition-all active:scale-95 ${activeTab === 'policy' ? 'text-teal-600 dark:text-teal-400' : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300'}`}>
                         <Shield size={22} className={activeTab === 'policy' ? 'fill-teal-50 dark:fill-teal-900/50' : ''} />
                         <span className="text-[10px] mt-1 font-bold">Policy</span>
