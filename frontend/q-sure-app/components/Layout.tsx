@@ -1,6 +1,12 @@
 import { Home, Shield, Wallet, Settings } from "lucide-react";
+import { ReactNode } from "react";
 
-export default function MobileLayout({ children, toggleGodMode }) {
+interface LayoutProps {
+    children: ReactNode;
+    toggleGodMode?: () => void;
+}
+
+export default function MobileLayout({ children, toggleGodMode }: LayoutProps) {
     return (
         <div className="flex justify-center bg-black min-h-screen">
             <div className="w-full max-w-[480px] bg-gray-950 text-white relative shadow-2xl overflow-hidden flex flex-col">

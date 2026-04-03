@@ -36,6 +36,7 @@ export default function Onboarding() {
             if (step < 4) {
                 setStep(step + 1);
             } else {
+                localStorage.setItem('qsure-onboarded', 'true');
                 router.push('/');
             }
         }, 1200);
