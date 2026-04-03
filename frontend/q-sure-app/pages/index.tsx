@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 // CHANGE THIS:
 const ZoneMap = dynamic(() => import('../components/ZoneMap'), {
     ssr: false,
@@ -55,7 +57,7 @@ export default function App() {
     };
 
     useEffect(() => {
-        fetch('http://10.3.99.184:8000/calculate_premium', {
+        fetch('${apiUrl}/calculate_premium', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ zone_risk_score: 8, forecasted_rainfall_mm: 25.0, forecasted_max_temp_c: 30.0, upcoming_event_flag: 0 })
@@ -72,7 +74,7 @@ export default function App() {
         setScenarioIndex(nextIndex);
 
         try {
-            const res = await fetch('http://10.3.99.184:8000/check_triggers/Bengaluru?use_simulator=true');
+            const res = await fetch('${apiUrl}/check_triggers/Bengaluru?use_simulator=true');
             const data = await res.json();
 
             if (data.disruption_active) {
