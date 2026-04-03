@@ -7,7 +7,8 @@ import {
     Home, Shield, Wallet, Settings, User, Zap, ShieldCheck,
     CloudSun, AlertTriangle, CheckCircle, ArrowRight, Activity,
     Building, ChevronRight, Clock, AlertOctagon, ArrowDownToLine,
-    Banknote, HelpCircle, Moon, Sun, Smartphone, Download, BarChart3, Loader2, Share
+    Banknote, HelpCircle, Moon, Sun, Smartphone, Download, BarChart3, Loader2, Share,
+    LogOut
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 
@@ -27,10 +28,15 @@ const DISRUPTION_SCENARIOS = [
 
 export default function App() {
     const router = useRouter();
+    const [platform, setPlatform] = useState('Swiggy Instamart');
     useEffect(() => {
         const hasOnboarded = localStorage.getItem('qsure-onboarded');
         if (!hasOnboarded) {
             router.push('/onboarding');
+        } else {
+            // ADD THIS: Read the saved platform
+            const savedPlatform = localStorage.getItem('qsure-platform');
+            if (savedPlatform) setPlatform(savedPlatform);
         }
     }, [router]);
     const { installPrompt, isIOS, isStandalone, triggerInstall } = usePWAInstall();
@@ -62,6 +68,13 @@ export default function App() {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         setTheme(newTheme);
         localStorage.setItem('qsure-theme', newTheme);
+    };
+
+    const handleLogout = () => {
+        // 1. Remove the memory flag
+        localStorage.removeItem('qsure-onboarded');
+        // 2. Route them back to the start
+        router.push('/onboarding');
     };
 
     useEffect(() => {
@@ -161,6 +174,9 @@ export default function App() {
                         <Zap className="text-orange-500" fill="currentColor" size={22} /> Q-Sure
                     </h1>
                     <div className="flex items-center gap-2">
+                        <button onClick={handleLogout} className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-red-500 transition-colors active:scale-95">
+                            <LogOut size={18} />
+                        </button>
                         <button onClick={toggleTheme} className="w-10 h-10 flex items-center justify-center text-slate-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors active:scale-95">
                             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
                         </button>
@@ -189,7 +205,7 @@ export default function App() {
                                         <div className="flex items-center gap-3">
                                             <div className="w-8 h-8 bg-orange-100 dark:bg-orange-500/20 rounded-full flex items-center justify-center text-orange-600 dark:text-orange-400"><Smartphone size={16} /></div>
                                             <div className="text-left">
-                                                <p className="text-xs font-bold text-slate-800 dark:text-white">Swiggy Instamart</p>
+                                                <p className="text-xs font-bold text-slate-800 dark:text-white">{platform}</p>
                                                 <p className="text-[10px] text-emerald-500 font-medium">Synced • Live Data</p>
                                             </div>
                                         </div>

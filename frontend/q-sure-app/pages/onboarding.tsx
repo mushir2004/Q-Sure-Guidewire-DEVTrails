@@ -36,6 +36,9 @@ export default function Onboarding() {
             if (step < 4) {
                 setStep(step + 1);
             } else {
+                // ADD THIS: Save the platform they clicked
+                if (selectedPlatform) localStorage.setItem('qsure-platform', selectedPlatform);
+
                 localStorage.setItem('qsure-onboarded', 'true');
                 router.push('/');
             }
