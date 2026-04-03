@@ -11,6 +11,8 @@ import {
 } from 'lucide-react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 // CHANGE THIS:
 const ZoneMap = dynamic(() => import('../components/ZoneMap'), {
     ssr: false,
