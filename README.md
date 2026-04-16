@@ -10,7 +10,7 @@
   </a>
   <br><br>
 
-  <strong>🏆 Guidewire DEVTrails 2026 - Phase 1 Submission</strong><br>
+  <strong>🏆 Guidewire DEVTrails 2026 -  Submission</strong><br>
   <strong>👥 Team:</strong> The Damned | <strong>🎯 Theme:</strong> Ideate & Know Your Delivery Worker
 </div>
 <hr>
