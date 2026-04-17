@@ -8,6 +8,9 @@
   <a href="https://www.figma.com/proto/m6dOWMybHamF9rDTSUT70O/Q-Sure-Mockups?node-id=1-2&p=f&t=Uxfl2hPsgC6n6439-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1">
     <img src="https://img.shields.io/badge/View_Figma_Mockups-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="View Figma"/>
   </a>
+  <a href="https://drive.google.com/file/d/1nI0OHwI7_S-0jv_WIprMQQnV8y0bJYQG/view">
+    <img src="https://img.shields.io/badge/View_Pitch_Deck-4285F4?style=for-the-badge&logo=googledrive&logoColor=white" alt="View Pitch Deck"/>
+  </a>
   <br><br>
 
   <strong>🏆 Guidewire DEVTrails 2026 -  Submission</strong><br>
