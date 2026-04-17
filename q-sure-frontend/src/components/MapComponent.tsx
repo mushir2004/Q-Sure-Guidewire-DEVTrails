@@ -26,17 +26,17 @@ export default function MapComponent({ theme, scenario, livePos }: { theme: stri
         ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
         : 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
 
-    // Base is live GPS. Fallback to Bangalore if blocked.
     const basePos: [number, number] = livePos || [12.9279, 77.6271];
-    // Fraud teleport 5km away
     const riderPos: [number, number] = scenario === 'fraud' ? [basePos[0] + 0.05, basePos[1] + 0.05] : basePos;
-    const riskColor = scenario === 'flood' ? '#3b82f6' : scenario === 'fraud' ? '#ef4444' : '#10b981';
+
+    // Normal = Blue, Disruption/Fraud = Red
+    const riskColor = scenario === 'normal' ? '#3b82f6' : '#ef4444';
 
     return (
         <MapContainer center={basePos} zoom={13} className="w-full h-full rounded-2xl z-0" zoomControl={false}>
             <TileLayer url={tileUrl} attribution="&copy; CartoDB" />
             <MapUpdater center={riderPos} zoom={scenario === 'fraud' ? 11 : 14} />
-            <Circle center={basePos} radius={3000} pathOptions={{ color: riskColor, fillColor: riskColor, fillOpacity: 0.1 }} />
+            <Circle center={basePos} radius={3000} pathOptions={{ color: riskColor, fillColor: riskColor, fillOpacity: 0.15 }} />
             <Marker position={riderPos} />
         </MapContainer>
     );
